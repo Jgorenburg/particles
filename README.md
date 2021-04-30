@@ -4,6 +4,8 @@ Implements particle systems using openGL
 
 TODO: Add a representative image for your project here
 
+![jew](/images/jewish.gif)
+
 ## How to build
 
 *Windows*
@@ -47,4 +49,20 @@ particles/build $ ../bin/demo
 
 ## Results
 
-TODO: Show your work
+I added a feature which spawns particles on the cursor location. These particles shrink over time and are eventually deleted.
+
+Particles shrinking:
+
+![size](/images/particles.gif)
+
+Following the cursor:
+
+![cursor](/images/cursor.gif)
+
+Colors change over time:
+
+![time](/images/changingcolor.gif)
+
+Alternating between two colors:
+
+![bi](/images/bicolor.gif)
