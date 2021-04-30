@@ -6,6 +6,8 @@
 #include "image.h"
 #include <string>
 
+using namespace glm;
+
 namespace agl {
    enum BlendMode {DEFAULT, ADD, ALPHA};
    class Renderer
@@ -19,9 +21,10 @@ namespace agl {
       virtual void perspective(float fovRadians, float aspect, float near, float far); 
       virtual void ortho(float minx, float maxx, float miny, float maxy, float minz, float maxz); 
       virtual void lookAt(const glm::vec3& lookfrom, const glm::vec3& lookat);
+      virtual mat3 rotation(const glm::vec3& cameraPos);
 
       virtual void begin(GLuint textureId, BlendMode mode);
-      virtual void quad(const glm::vec3& pos, const glm::vec4& color, float size);
+      virtual void quad(const glm::vec3& pos, const glm::vec4& color, float size, mat3 rot = mat3(1));
       virtual void end();
 
       virtual bool initialized() const;

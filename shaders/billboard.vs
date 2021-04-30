@@ -6,6 +6,7 @@ uniform vec3 uCameraPos;
 uniform float uSize;
 uniform vec3 uOffset;
 uniform vec4 uColor;
+uniform mat3 uRot;
 uniform mat4 uVP;
 
 out vec4 color;
@@ -15,5 +16,5 @@ void main()
 {
    color = uColor;
    uv = vPos.xy;
-   gl_Position = vec4(vPos, 1.0); 
+   gl_Position = uVP * vec4(uRot * ((vPos - vec3(0.5f, 0.5f, 0)) * uSize) + uOffset, 1); 
 }

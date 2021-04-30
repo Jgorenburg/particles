@@ -20,7 +20,7 @@ namespace agl {
    public:
       ParticleSystem();
       virtual ~ParticleSystem();
-
+     
       void init(int size);
       virtual void update(float dt) = 0;
       virtual void draw();
@@ -36,6 +36,7 @@ namespace agl {
       GLuint mTexture;
       BlendMode mBlendMode;
       static Renderer theRenderer;
+      
    };
 }
 #endif

@@ -14,6 +14,8 @@ using namespace std;
 using namespace glm;
 using namespace agl;
 
+bool start = false;
+
 MyParticleSystem theSystem;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -23,6 +25,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
    if (key == GLFW_KEY_ESCAPE)
    {
       glfwSetWindowShouldClose(window, GLFW_TRUE);
+   }
+
+   if (key == GLFW_KEY_SPACE)
+   {
+       start = true;
    }
 }
 
@@ -80,6 +87,10 @@ int main(int argc, char** argv)
    glfwSetScrollCallback(window, scroll_callback);
    glfwSetCursorPosCallback(window, cursor_position_callback);
 
+   double xpos, ypos;
+   
+
+
 #ifndef APPLE
    if (glewInit() != GLEW_OK)
    {
@@ -102,11 +113,22 @@ int main(int argc, char** argv)
    {
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the buffers
 
+      if (start) {
+          theSystem.updateSize();
+      }
+
       float dt = glfwGetTime() - lastTime;
       lastTime = glfwGetTime();
 
+      glfwGetCursorPos(window, &xpos, &ypos);
+
+      if (xpos >= 0 && xpos < 500 && ypos >= 0 && ypos < 500) {
+          theSystem.addParticles(vec3(xpos / 500, -ypos / 500, 0), dt);
+      }
       theSystem.update(dt);
       theSystem.draw();
+
+      
 
       // Swap front and back buffers
       glfwSwapBuffers(window);

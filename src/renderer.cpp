@@ -103,6 +103,16 @@ void Renderer::lookAt(const vec3& lookfrom, const vec3& lookat)
    mViewMatrix = glm::lookAt(lookfrom, lookat, vec3(0,1,0));
 }
 
+mat3 Renderer::rotation(const vec3& cameraPos)
+{
+    vec3 z3 = normalize(cameraPos);
+    vec3 x3 = normalize(cross(vec3(0, 1, 0), z3));
+    vec3 y3 = normalize(cross(z3, x3));
+   
+
+   return mat3(x3, y3, z3);
+}
+
 void Renderer::begin(GLuint texIf, BlendMode mode)
 {
    assert(mInitialized);
@@ -121,12 +131,14 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
 }
 
-void Renderer::quad(const glm::vec3& pos, const glm::vec4& color, float size)
+void Renderer::quad(const glm::vec3& pos, const glm::vec4& color, float size, glm::mat3 rot)
 {
    assert(mInitialized);
    glUniform3f(glGetUniformLocation(mShaderId, "uOffset"), pos[0], pos[1], pos[2]);
    glUniform4f(glGetUniformLocation(mShaderId, "uColor"), color[0], color[1], color[2], color[3]);
    glUniform1f(glGetUniformLocation(mShaderId, "uSize"), size);
+   glUniformMatrix3fv(glGetUniformLocation(mShaderId, "uRot"), 1, GL_FALSE, &rot[0][0]);
+
 
    glDrawArrays(GL_TRIANGLES, 0, 6); 
 }

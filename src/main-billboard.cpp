@@ -103,9 +103,10 @@ int main(int argc, char** argv)
       float x = 6.0f * cos(theta);
       float z = 6.0f * sin(theta);
       theRenderer.lookAt(vec3(x, 0, z), vec3(0, 0, 0));
-
+      mat3 rotMatrix = theRenderer.rotation(vec3(x, 0, z));
+   
       theRenderer.begin(imageId, ALPHA);
-      theRenderer.quad(vec3(0), vec4(1.0, 0.0, 0.5, 1.0), 2.0f);
+      theRenderer.quad(vec3(0), vec4(1.0, 0.0, 0.5, 1.0), 2.0f, rotMatrix);
       theRenderer.end();
 
       // Swap front and back buffers
